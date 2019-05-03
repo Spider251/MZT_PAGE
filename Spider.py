@@ -10,7 +10,8 @@ from lxml import etree
 
 class MZTSpider:
     def __init__(self):
-        self.parse_url = 'https://www.mzitu.com/xinggan/'
+        # self.parse_url = 'https://www.mzitu.com/xinggan/'
+        self.parse_url = 'https://www.mzitu.com/xinggan/page/{}/'
         self.ua = UserAgent()
         self.headers = {
             "host": "api.meizitu.net",
