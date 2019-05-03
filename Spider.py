@@ -6,6 +6,7 @@ import time
 import requests
 from fake_useragent import UserAgent
 from lxml import etree
+import os
 
 
 class MZTSpider:
@@ -68,7 +69,15 @@ class MZTSpider:
         # self.write_page(link,page_index,content)
     def write_page(self,page_url,content,page_index):
         html = requests.get(page_url,headers=self.headers__).content
-        filename = "D:\项目\MTZPP\image\\" + content + "[" +str(page_index) + "].jpg"
+        # 创建路径
+        curPath = os.getcwd()
+        targetPath = curPath + '\\images\\' + content
+        print(targetPath)
+        if not os.path.exists(targetPath):
+            os.makedirs(targetPath)
+        else:
+            print("路径已存在！")
+        filename = "D:\项目\MTZPP\images\\" + content +"\\"+content+ "[" +str(page_index) + "].jpg"
         with open(filename, 'wb') as file:
             file.write(html)
             print(f"已下载{self.num}张妹纸图片")
@@ -76,7 +85,8 @@ class MZTSpider:
 
 
     def main(self):
-        self.get_html(self.parse_url)
+        for i in range(1, 147):
+            self.get_html(self.parse_url.format(i))
 
 if __name__ == '__main__':
     spider = MZTSpider()
